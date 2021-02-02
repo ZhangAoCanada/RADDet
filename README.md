@@ -64,12 +64,9 @@ For the data capture, we used the same radar configuration through the entire re
 
 The dataset has totally **6** categories, different input formats and ground truth formats. All the information that stored in the dataset can be concluded as follow.
 ```
-ADC:		raw radar data with size (256, 8, 64)
 RAD:		3D-FFT radar data with size (256, 256, 64)
-images:		2 rectified stereo images
-gt:		ground truth with {"classes", "masks", "boxes"}	
-gt_box:		ground truth with {"classes", "boxes", "cart_boxes"}
-visual:		DATASET visualization with masks and boxes
+stereo_image:	2 rectified stereo images
+gt:		ground truth with {"classes", "boxes", "cart_boxes"}
 ```
 
 **Note:** the reason why there are `gt` and `gt_box` is that 3D masks (RAD masks) take huge amount of space to store.
