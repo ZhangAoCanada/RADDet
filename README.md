@@ -121,7 +121,7 @@ Since our inputs are RAD tensors only, we propose a Coordinate Transformation bl
 
 Due to our dual detection head is a one-stage, single frame, anchor-based detection head, the anchor boxes for both 3D and 2D heads are defined by K-means Clustering.
 <p align="center">
-  <img src="./images/anchors.jpg">
+  <img src="./images/anchors.png">
 </p>
 
 # How to use<a name="howtouse"/>
