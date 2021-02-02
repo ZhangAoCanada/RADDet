@@ -52,8 +52,6 @@
 				"log_dir": "./logs/RadarResNet",
 				"RAD_inputdir": "/media/ao/Aooooo/Radar_Inference_Data/test_4/RAD",
 				"image_inputdir": "/media/ao/Aooooo/Radar_Inference_Data/test_4/images",
-				"RAD_inputformat" : ["6d", ".npy"],
-				"image_inputformat" : ["6d", ".jpg"],
 				"confidence_threshold" : 0.5,
 				"nms_iou3d_threshold": 0.01
 		},
