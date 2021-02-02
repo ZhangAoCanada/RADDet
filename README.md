@@ -14,6 +14,7 @@ Current State: preparing paper
 * [Radar Dataset](#Dataset)
 	* [Dataset Link](#DatasetLink)
 	* [Dataset Details](#DatasetDetails)
+	* [Dataset Statistic](#statistic)
 	* [Trainset & Testset](#traintest)
 * [RADDet](#RADDet)
 	* [Backbone: RadarResNet](#backbone)
@@ -77,7 +78,7 @@ visual:		DATASET visualization with masks and boxes
 
 **Also Note:** for the "boxes", the format is `[x_center, y_center, z_center, w, h, d]`.
 
-> Statistic Analysis
+## Statistic Analysis<a name="statistic"/>
 
 We also conducted some statistic analysis on the dataset. The figure below illustrates the number of objects of each category in the whole dataset, along with maximum number of ojbects within one single frame.
 <p align="center">
