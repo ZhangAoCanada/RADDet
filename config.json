@@ -27,7 +27,6 @@
 				"batch_size" : 3,
 				"focal_loss_iou_threshold" : 0.3,
 				"log_dir": "./logs/RadarResNet",
-				"log_cart_add": "smallest_conv",
 				"learningrate_init": 0.0001,
 				"learningrate_end": 0.00001,
 				"learningrate_decay": 0.96,
@@ -47,18 +46,6 @@
 				"mAP_iou3d_threshold": [0.1, 0.3, 0.5, 0.7]
 		},
 
-		"RADAR_CONFIGURATION" :
-		{
-				"designed_frequency" : 76.8,
-				"config_frequency" : 77,
-				"range_size" : 256,
-				"doppler_size" : 64,
-				"azimuth_size" : 256,
-				"range_resolution" : 0.1953125,
-				"angular_resolution" : 0.006135923,
-				"velocity_resolution" : 0.41968030701528203
-		},
-
 		"INFERENCE" :
 		{
 				"log_dir": "./logs/RadarResNet",
@@ -70,8 +57,15 @@
 				"nms_iou3d_threshold": 0.01
 		},
 
-		"PROCESS" :
+		"RADAR_CONFIGURATION" :
 		{
-				"sequences" : [0, 11000]
+				"designed_frequency" : 76.8,
+				"config_frequency" : 77,
+				"range_size" : 256,
+				"doppler_size" : 64,
+				"azimuth_size" : 256,
+				"range_resolution" : 0.1953125,
+				"angular_resolution" : 0.006135923,
+				"velocity_resolution" : 0.41968030701528203
 		}
 }

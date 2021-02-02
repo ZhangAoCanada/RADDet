@@ -17,15 +17,12 @@ def polarToCartesian(rho, phi):
     return(x, y)
 
 ################ functions of RAD processing ################
-def complexTo2Channels(target_array, config_data=None):
+def complexTo2Channels(target_array):
     """ transfer complex a + bi to [a, b]"""
     assert target_array.dtype == np.complex64
     ### NOTE: transfer complex to (magnitude) ###
     output_array = getMagnitude(target_array)
     output_array = getLog(output_array)
-    if config_data is not None:
-        output_array = (output_array - config_data["global_mean_log"]) / \
-                        config_data["global_variance_log"]
     return output_array
 
 def getMagnitude(target_array, power_order=2):

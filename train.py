@@ -35,7 +35,6 @@ def main():
     config = loader.readConfig()
     config_data = config["DATA"]
     config_radar = config["RADAR_CONFIGURATION"]
-    config_process = config["PROCESS"]
     config_model = config["MODEL"]
     config_train = config["TRAIN"]
 

@@ -128,6 +128,8 @@ class DataGenerator:
                 raise ValueError("RAD file not found, please double check the path")
             ### NOTE: Gloabl Normalization ###
             RAD_data = helper.complexTo2Channels(RAD_complex)
+            RAD_data = (RAD_data - self.config_data["global_mean_log"]) / \
+                                self.config_data["global_variance_log"]
             ### load ground truth instances ###
             gt_filename = loader.gtfileFromRADfile(RAD_filename, \
                                         self.config_data["train_set_dir"])
@@ -154,6 +156,8 @@ class DataGenerator:
                 raise ValueError("RAD file not found, please double check the path")
             ### NOTE: Gloabl Normalization ###
             RAD_data = helper.complexTo2Channels(RAD_complex)
+            RAD_data = (RAD_data - self.config_data["global_mean_log"]) / \
+                                self.config_data["global_variance_log"]
             ### load ground truth instances ###
             gt_filename = loader.gtfileFromRADfile(RAD_filename, \
                                         self.config_data["test_set_dir"])
@@ -279,6 +283,8 @@ class DataGenerator:
                 raise ValueError("RAD file not found, please double check the path")
             ### NOTE: Gloabl Normalization ###
             RAD_data = helper.complexTo2Channels(RAD_complex)
+            RAD_data = (RAD_data - self.config_data["global_mean_log"]) / \
+                                self.config_data["global_variance_log"]
             ### load ground truth instances ###
             gt_filename = loader.gtfileFromRADfile(RAD_filename, \
                                         self.config_data["train_set_dir"])
@@ -308,6 +314,8 @@ class DataGenerator:
                 raise ValueError("RAD file not found, please double check the path")
             ### NOTE: Gloabl Normalization ###
             RAD_data = helper.complexTo2Channels(RAD_complex)
+            RAD_data = (RAD_data - self.config_data["global_mean_log"]) / \
+                                self.config_data["global_variance_log"]
             ### load ground truth instances ###
             gt_filename = loader.gtfileFromRADfile(RAD_filename, \
                                         self.config_data["test_set_dir"])

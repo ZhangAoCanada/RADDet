@@ -46,13 +46,14 @@ def cutImage3Axes(image_dir, image_filename):
     cv2.imwrite(image_name, new_img)
 
 
-def loadDataForPlot(sequences, config_data, config_inference, \
+def loadDataForPlot(all_RAD_files, config_data, config_inference, \
                     config_radar, interpolation=15.):
     """ Load data one by one for generating evaluation images """
-    for sequence_num in sequences:
+    sequence_num = -1
+    for RAD_file in all_RAD_files:
+        sequence_num += 1
         ### load RAD input ###
-        RAD_complex = loader.readRAD(config_inference["RAD_inputdir"], sequence_num, \
-                                    config_inference["RAD_inputformat"])
+        RAD_complex = loader.readRAD(RAD_file)
 
         ### NOTE: real time visualization ###
         RA = helper.getLog(helper.getSumDim(helper.getMagnitude(RAD_complex, \
@@ -64,9 +65,9 @@ def loadDataForPlot(sequences, config_data, config_inference, \
         RA_img = helper.norm2Image(RA)[..., :3]
         RD_img = helper.norm2Image(RD)[..., :3]
         RA_cart_img = helper.norm2Image(RA_cart)[..., :3]
-        stereo_left_image = loader.readSingleImage(config_inference["image_inputdir"], \
-                                                sequence_num, \
-                                                config_inference["image_inputformat"])
+
+        img_file = loader.imgfileFromRADfile(RAD_file, config_data["test_set_dir"])
+        stereo_left_image = loader.readStereoLeft(img_file)
 
         RAD_data = helper.complexTo2Channels(RAD_complex)
         RAD_data = (RAD_data - config_data["global_mean_log"]) / \
@@ -87,7 +88,6 @@ def main():
     config = loader.readConfig()
     config_data = config["DATA"]
     config_radar = config["RADAR_CONFIGURATION"]
-    config_process = config["PROCESS"]
     config_model = config["MODEL"]
     config_train = config["TRAIN"]
     config_evaluate = config["EVALUATE"]
@@ -130,9 +130,9 @@ def main():
     if_evaluate_cart = True
     logdir_cart = os.path.join(config_inference["log_dir"], "cartesian_" + \
                         "b_" + str(config_train["batch_size"]) + \
-                        # "lr_" + str(config_train["learningrate_init"]))
-                        "lr_" + str(config_train["learningrate_init"]) + \
-                        "_" + str(config_train["log_cart_add"]))
+                        "lr_" + str(config_train["learningrate_init"]))
+                        # "lr_" + str(config_train["learningrate_init"]) + \
+                        # "_" + str(config_train["log_cart_add"]))
     if not os.path.exists(logdir_cart):
         if_evaluate_cart = False
         print("*************************************************************")
@@ -150,7 +150,7 @@ def main():
             print("Restored Cartesian Boxes Model from {}".format\
                                             (manager_cart.latest_checkpoint))
 
-    def inferencePlotting(sequences):
+    def inferencePlotting(all_RAD_files):
         """ Plot the predictions of all data in dataset """
         if if_evaluate_cart:
             fig, axes = drawer.prepareFigure(4, figsize=(80, 6))
@@ -165,11 +165,12 @@ def main():
             shutil.rmtree(image_save_dir)
             os.makedirs(image_save_dir)
         print("Start plotting, it might take a while...")
-        pbar = tqdm(total=len(sequences))
+        pbar = tqdm(total=len(all_RAD_files))
         model_RAD_st = []
         model_cart_st = []
         for sequence_num, data, stereo_left_image, RD_img, RA_img, RA_cart_img in \
-                loadDataForPlot(sequences, config_data, config_inference, config_radar):
+                loadDataForPlot(all_RAD_files, config_data, config_inference, \
+                                config_radar):
             if data is None or stereo_left_image is None:
                 pbar.update(1)
                 continue
@@ -225,9 +226,8 @@ def main():
 
 
     ### NOTE: inference starting from here ###
-    sequence_nums = loader.getSequenceNumbers(config_inference["RAD_inputdir"], \
-                                            config_inference["RAD_inputformat"])
-    inferencePlotting(sequence_nums)
+    all_RAD_files = glob(os.path.join(config_data["test_set_dir"], "RAD/*/*.npy"))
+    inferencePlotting(all_RAD_files)
 
 
 if __name__ == "__main__":
