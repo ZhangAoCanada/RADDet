@@ -69,9 +69,7 @@ stereo_image:	2 rectified stereo images
 gt:		ground truth with {"classes", "boxes", "cart_boxes"}
 ```
 
-**Note:** the reason why there are `gt` and `gt_box` is that 3D masks (RAD masks) take huge amount of space to store.
-
-**Also Note:** for the "classes", they are `["person", "bicycle", "car", "motorcycle", "bus", "truck" ]`.
+**Note:** for the "classes", they are `["person", "bicycle", "car", "motorcycle", "bus", "truck" ]`.
 
 **Also Note:** for the "boxes", the format is `[x_center, y_center, z_center, w, h, d]`.
 
