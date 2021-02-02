@@ -121,12 +121,6 @@ Due to our dual detection head is a one-stage, single frame, anchor-based detect
   <img src="./images/anchors.gif">
 </p>
 
-> DONE
-- Data visualization with input(RAD)/output(instance with mask/box):  `visualize_data.py`. A sample is shown as below,
-<p align="center">
-  <img src="./images/showcase.gif">
-</p>
-
 # How to use<a name="howtouse"/>
 
 **Attention:** Please keep the same directory tree as shown in [GoogleDrive](https://drive.google.com/drive/folders/1v-AF873jP8p6waChF3pSSqz6HXOOZgkC?usp=sharing).
@@ -163,14 +157,14 @@ Change the train directory in `config.json` as shown below,
 "DATA" :
 {
 	"train_set_dir": "/path/to/your/train/set/directory",
-	...
+	"..."
 }
 ```
 Also, feel free to change other training settings,
 ```json
 "TRAIN" :
 {
-	...
+	"..."
 }
 ```
 
@@ -180,19 +174,21 @@ Change the test directory in `config.json` as shown below,
 ```json
 "DATA" :
 {
-	...
+	"...",
 	"test_set_dir": "/path/to/your/train/set/directory",
-	...
+	"..."
 }
 ```
 Also, feel free to change other training settings,
 ```json
 "EVALUATE" :
 {
-	...
+	"..."
 }
 ```
 
 ## Pre-trained checkpoint
 
 For pre-trained `.ckpt`, goto [CheckPoint](https://drive.google.com/drive/folders/1EZQtcAUzVKYmYHDuiiV_FB5Obk7PbSoE?usp=sharing)
+
+After downloading `.ckpt`, create a directory `./logs` and put the checkpoint file inside it.
