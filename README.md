@@ -28,8 +28,8 @@ Current State: preparing paper
 
 Our model is developed under
 ```
-System:		Ubuntu 18.04
-Python:			3.6.9
+System:				Ubuntu 18.04
+Python:				3.6.9
 CUDA version:			10.1
 TensorFlow:			>=2.3.0
 ```
