@@ -182,7 +182,7 @@ Change the test directory in `config.json` as shown below,
 	"..."
 }
 ```
-Also, feel free to change other training settings,
+Also, feel free to change other evaluate settings,
 ```json
 "EVALUATE" :
 {
