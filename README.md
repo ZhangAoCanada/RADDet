@@ -16,7 +16,7 @@ Current State: preparing paper
 	* [Dataset Details](#DatasetDetails)
 	* [Dataset Statistic](#statistic)
 	* [Trainset & Testset](#traintest)
-* [RADDet](#RADDet)
+* [RADDet](#Core)
 	* [Backbone: RadarResNet](#backbone)
 	* [Dual Detection Head](#head)
 * [How to use](#howtouse)
@@ -99,7 +99,7 @@ trainset: {'person': 5210, 'bicycle': 729, 'car': 13537, 'motorcycle': 67, 'bus'
 testset:  {'person': 1280, 'bicycle': 204, 'car':  3377, 'motorcycle': 21, 'bus':  38, 'truck':  720}
 ```
 
-# RADDet<a name="RADDet"/>
+# RADDet<a name="Core"/>
 
 ## Backbone: RadarResNet<a name="backbone"/>
 
