@@ -1,0 +1,77 @@
+{
+		"DATA" :
+		{
+				"train_set_dir": "/media/ao/Aooooo/RADDet_DATASET/train",
+				"test_set_dir": "/media/ao/Aooooo/RADDet_DATASET/test",
+				"all_classes" : ["person", "bicycle", "car", "motorcycle", "bus", "truck" ],
+				"global_mean_log" : 3.2438383,
+				"global_max_log" : 10.0805629,
+				"global_min_log" : 0.0,
+				"global_variance_log" : 6.8367246,
+				"max_boxes_per_frame" : 30,
+				"trainset_portion" : 0.8
+		},
+
+		"MODEL" :
+		{
+				"yolohead_xyz_scales" : [1, 1, 1],
+				"input_shape" : [256, 256, 64],
+				"confidence_threshold" : 0.5,
+				"nms_iou3d_threshold": 0.1,
+				"mAP_iou3d_threshold": 0.3
+		},
+
+		"TRAIN" :
+		{
+				"epochs" : 1000,
+				"batch_size" : 3,
+				"focal_loss_iou_threshold" : 0.3,
+				"log_dir": "./logs/RadarResNet",
+				"log_cart_add": "smallest_conv",
+				"learningrate_init": 0.0001,
+				"learningrate_end": 0.00001,
+				"learningrate_decay": 0.96,
+				"learningrate_decay_gap": 3000,
+				"startup_steps": 1000,
+				"learningrate_startup": 0.0001,
+				"warmup_steps": 60000,
+				"test_start_steps": 10000,
+				"test_gap": 10000
+		},
+
+		"EVALUATE" :
+		{
+				"log_dir": "./logs/RadarResNet",
+				"confidence_threshold" : 0.5,
+				"nms_iou3d_threshold": 0.1,
+				"mAP_iou3d_threshold": [0.1, 0.3, 0.5, 0.7]
+		},
+
+		"RADAR_CONFIGURATION" :
+		{
+				"designed_frequency" : 76.8,
+				"config_frequency" : 77,
+				"range_size" : 256,
+				"doppler_size" : 64,
+				"azimuth_size" : 256,
+				"range_resolution" : 0.1953125,
+				"angular_resolution" : 0.006135923,
+				"velocity_resolution" : 0.41968030701528203
+		},
+
+		"INFERENCE" :
+		{
+				"log_dir": "./logs/RadarResNet",
+				"RAD_inputdir": "/media/ao/Aooooo/Radar_Inference_Data/test_4/RAD",
+				"image_inputdir": "/media/ao/Aooooo/Radar_Inference_Data/test_4/images",
+				"RAD_inputformat" : ["6d", ".npy"],
+				"image_inputformat" : ["6d", ".jpg"],
+				"confidence_threshold" : 0.5,
+				"nms_iou3d_threshold": 0.01
+		},
+
+		"PROCESS" :
+		{
+				"sequences" : [0, 11000]
+		}
+}
