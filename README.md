@@ -19,6 +19,8 @@ Current State: preparing paper
 	* [Backbone: RadarResNet](#backbone)
 	* [Dual Detection Head](#head)
 * [How to use](#howtouse)
+	* [Train](#train)
+	* [Test](#test)
 <!--te-->
 
 # Requirements<a name="requirements"/>
@@ -102,7 +104,7 @@ testset:  {'person': 1280, 'bicycle': 204, 'car':  3377, 'motorcycle': 21, 'bus'
 
 Our backbone, RadarResNet, is developed based on [ResNet](https://arxiv.org/abs/1512.03385). Details shown as below,
 <p align="center">
-  <img src="./images/NetworksArchitecture.gif">
+  <img src="./images/NetworksArchitecture.jpg">
 </p>
 
 We also tried [VGG](https://arxiv.org/abs/1409.1556), which is faster but lower AP.
@@ -113,12 +115,12 @@ Also shown as the image above, the RADDet has two detection heads, we call it du
 
 Since our inputs are RAD tensors only, we propose a Coordinate Transformation block to transform the raw feature maps from Polar Coordinates to Cartesian Coordinates. The core of it is Channel-wise Fully Connected Layers.
 <p align="center">
-  <img src="./images/channel-wise_MLP.gif">
+  <img src="./images/channel-wise_MLP.jpg">
 </p>
 
 Due to our dual detection head is a one-stage, single frame, anchor-based detection head, the anchor boxes for both 3D and 2D heads are defined by K-means Clustering.
 <p align="center">
-  <img src="./images/anchors.gif">
+  <img src="./images/anchors.jpg">
 </p>
 
 # How to use<a name="howtouse"/>
@@ -174,7 +176,7 @@ Change the test directory in `config.json` as shown below,
 ```json
 "DATA" :
 {
-	"...",
+	"..."
 	"test_set_dir": "/path/to/your/train/set/directory",
 	"..."
 }
