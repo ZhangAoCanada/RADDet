@@ -1,10 +1,7 @@
 import os
 os.environ["CUDA_DEVICE_ORDER"]="PCI_BUS_ID"
-# os.environ["CUDA_VISIBLE_DEVICES"]="0"
-# os.environ["CUDA_VISIBLE_DEVICES"]="1"
-os.environ["CUDA_VISIBLE_DEVICES"]="2"
+os.environ["CUDA_VISIBLE_DEVICES"]="0"
 
-# os.environ["CUDA_VISIBLE_DEVICES"]="0,1"
 import shutil
 import cv2
 import numpy as np
@@ -61,7 +58,7 @@ def main():
                     model.features_shape, anchor_boxes, \
                     anchors_cart=anchor_cart, cart_shape=model_cart.features_shape)
     train_cart_generator = data_generator.trainCartGenerator()
-    test_cart_generator = data_generator.testCartGenerator()
+    validate_cart_generator = data_generator.validateCartGenerator()
 
     ### NOTE: training settings ###
     logdir_backbone = os.path.join(config_train["log_dir"], \
@@ -70,8 +67,6 @@ def main():
     logdir_cart = os.path.join(config_train["log_dir"], "cartesian_" + \
                         "b_" + str(config_train["batch_size"]) + \
                         "lr_" + str(config_train["learningrate_init"]))
-                        # "lr_" + str(config_train["learningrate_init"]) + \
-                        # "_" + str(config_train["log_cart_add"]))
     if not os.path.exists(logdir_backbone):
         raise ValueError("Backbone not loaded, please check the ckpt path.")
     if not os.path.exists(logdir_cart):
@@ -125,7 +120,7 @@ def main():
             writer.flush()
         return total_loss, box_loss, conf_loss, category_loss
     
-    ### NOTE: define testing step ###
+    ### NOTE: define validate step ###
     # @tf.function
     def test_step():
         mean_ap_test = 0.0
@@ -137,8 +132,8 @@ def main():
         category_losstest = []
         for class_id in range(num_classes):
             ap_all_class.append([])
-        for data, label, raw_boxes in test_cart_generator.repeat().\
-            batch(data_generator.batch_size).take(data_generator.total_test_batches):
+        for data, label, raw_boxes in validate_cart_generator.\
+            batch(data_generator.batch_size).take(data_generator.total_validate_batches):
             backbone_fmp = model.backbone_stage(data)
             pred_raw = model_cart(backbone_fmp)
             pred = model_cart.decodeYolo(pred_raw)
@@ -166,7 +161,7 @@ def main():
             else:
                 class_ap = np.mean(ap_class_i)
             ap_all_class_test.append(class_ap)
-        mean_ap_test /= data_generator.batch_size*data_generator.total_test_batches
+        mean_ap_test /= data_generator.batch_size*data_generator.total_validate_batches
         tf.print("-------> ap: %.6f"%(mean_ap_test))
         ### writing summary data ###
         with writer.as_default():
@@ -212,15 +207,10 @@ def main():
                     config_train["learningrate_decay"] * \
                     (lr - config_train["learningrate_end"])
             optimizer.lr.assign(lr)
-        ### TODO: cross-validation like data generation ###
-        # if global_steps % config_train["test_gap"] == 0:
-            # print("************* re-shuffle train set and test set ***************")
-            # data_generator.sequences_train, \
-                    # data_generator.sequences_test = data_generator.splitSequences()
 
-        ###---------------------------- TEST SET -------------------------###
-        if global_steps.numpy() >= config_train["test_start_steps"] and \
-                global_steps.numpy() % config_train["test_gap"] == 0:
+        ###---------------------------- VALIDATE SET -------------------------###
+        if global_steps.numpy() >= config_train["validate_start_steps"] and \
+                global_steps.numpy() % config_train["validate_gap"] == 0:
             test_step()
             save_path = manager.save()
             print("Saved checkpoint for step {}: {}".format(int(ckpt.step), save_path))

@@ -1,12 +1,11 @@
 # RADDet
 ## Range-Azimuth-Doppler based Radar Object Detection for Dynamic Road Users
-Preparing paper
-
-## what is it
 The following `.gif` is an example of the our model.
 <p align="center">
   <img src="./images/ShowCase.gif">
 </p>
+
+Current State: preparing paper
 
 ## Radar(stationary) Dataset for Dynamic Road Users
 

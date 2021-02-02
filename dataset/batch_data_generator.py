@@ -25,11 +25,26 @@ class DataGenerator:
         self.RAD_sequences_train = self.readSequences(mode="train")
         self.RAD_sequences_test = self.readSequences(mode="test")
 
+        self.RAD_sequences_train, self.RAD_sequences_validate = \
+                                self.splitTrain(self.RAD_sequences_train)
+
+        self.RAD_sequences_validate = self.RAD_sequences_validate
+
         self.batch_size = config_train["batch_size"]
         self.total_train_batches = (self.config_train["epochs"] * \
                                     len(self.RAD_sequences_train)) // self.batch_size
-        ### NOTE: test is always in the train loop, so it doesnt take epoches as arg ###
         self.total_test_batches = len(self.RAD_sequences_test) // self.batch_size
+        self.total_validate_batches = len(self.RAD_sequences_validate) // self.batch_size
+
+    def splitTrain(self, train_sequences):
+        """ Split train set to train and validate """
+        total_num = len(train_sequences)
+        validate_num = int(0.1 * total_num)
+        if self.config_train["if_validate"]:
+            return train_sequences[:total_num-validate_num], \
+                    train_sequences[total_num-validate_num:]
+        else:
+            return train_sequences, train_sequences[total_num-validate_num:]
 
     def getGridStrides(self, ):
         """ Get grid strides """
@@ -171,6 +186,30 @@ class DataGenerator:
                 yield (RAD_data, gt_labels, raw_boxes)
             count += 1
 
+    def validateData(self, ):
+        """ Generate test data with batch size """
+        count = 0
+        while  count < len(self.RAD_sequences_validate):
+            RAD_filename = self.RAD_sequences_validate[count] 
+            RAD_complex = loader.readRAD(RAD_filename)
+            if RAD_complex is None:
+                raise ValueError("RAD file not found, please double check the path")
+            ### NOTE: Gloabl Normalization ###
+            RAD_data = helper.complexTo2Channels(RAD_complex)
+            RAD_data = (RAD_data - self.config_data["global_mean_log"]) / \
+                                self.config_data["global_variance_log"]
+            ### load ground truth instances ###
+            gt_filename = loader.gtfileFromRADfile(RAD_filename, \
+                                        self.config_data["train_set_dir"])
+            gt_instances = loader.readRadarInstances(gt_filename)
+            if gt_instances is None:
+                raise ValueError("gt file not found, please double check the path")
+            ### TODO: consider whether to change the box to raw yolohead output format ###
+            gt_labels, has_label, raw_boxes = self.encodeToLabels(gt_instances)
+
+            if has_label:
+                yield (RAD_data, gt_labels, raw_boxes)
+            count += 1
 
     def trainGenerator(self,):
         """ Building data generator using tf.data.Dataset.from_generator """
@@ -194,7 +233,17 @@ class DataGenerator:
                             7+len(self.config_data["all_classes"])]), \
                             tf.TensorShape([self.config_data["max_boxes_per_frame"], 7]) \
                             ), )
-                    
+ 
+    def validateGenerator(self,):
+        """ Building data generator using tf.data.Dataset.from_generator """
+        return tf.data.Dataset.from_generator(self.validateData, \
+                    output_types=(tf.float32, tf.float32, tf.float32), \
+                    output_shapes=(tf.TensorShape(self.config_model["input_shape"]), \
+                            tf.TensorShape(list(self.headoutput_shape[1:4]) + \
+                            [len(self.anchor_boxes), \
+                            7+len(self.config_data["all_classes"])]), \
+                            tf.TensorShape([self.config_data["max_boxes_per_frame"], 7]) \
+                            ), )
 
     """---------------------------------------------------------------------"""
     """----------------- Cartesian 2D Boxes train/test set -----------------"""
@@ -329,6 +378,32 @@ class DataGenerator:
                 yield (RAD_data, gt_labels, raw_boxes)
             count += 1
 
+    def validateDataCart(self, ):
+        if self.cart_grid_strides is None:
+            raise ValueError("Cartesian grid is None, please double check")
+        """ Generate test data with batch size """
+        count = 0
+        while  count < len(self.RAD_sequences_validate):
+            RAD_filename = self.RAD_sequences_validate[count] 
+            RAD_complex = loader.readRAD(RAD_filename)
+            if RAD_complex is None:
+                raise ValueError("RAD file not found, please double check the path")
+            ### NOTE: Gloabl Normalization ###
+            RAD_data = helper.complexTo2Channels(RAD_complex)
+            RAD_data = (RAD_data - self.config_data["global_mean_log"]) / \
+                                self.config_data["global_variance_log"]
+            ### load ground truth instances ###
+            gt_filename = loader.gtfileFromRADfile(RAD_filename, \
+                                        self.config_data["train_set_dir"])
+            gt_instances = loader.readRadarInstances(gt_filename)
+            if gt_instances is None:
+                raise ValueError("gt file not found, please double check the path")
+            ### TODO: consider whether to change the box to raw yolohead output format ###
+            gt_labels, has_label, raw_boxes = self.encodeToCartBoxesLabels(gt_instances)
+
+            if has_label:
+                yield (RAD_data, gt_labels, raw_boxes)
+            count += 1
 
     def trainCartGenerator(self,):
         """ Building data generator using tf.data.Dataset.from_generator """
@@ -345,6 +420,17 @@ class DataGenerator:
     def testCartGenerator(self,):
         """ Building data generator using tf.data.Dataset.from_generator """
         return tf.data.Dataset.from_generator(self.testDataCart, \
+                    output_types=(tf.float32, tf.float32, tf.float32), \
+                    output_shapes=(tf.TensorShape(self.config_model["input_shape"]), \
+                            tf.TensorShape(list(self.cart_shape[1:3]) + \
+                            [len(self.anchor_boxes_cart)] + \
+                            [len(self.config_data["all_classes"]) + 5]), 
+                            tf.TensorShape([self.config_data["max_boxes_per_frame"], 5]) \
+                            ), )
+
+    def validateCartGenerator(self,):
+        """ Building data generator using tf.data.Dataset.from_generator """
+        return tf.data.Dataset.from_generator(self.validateDataCart, \
                     output_types=(tf.float32, tf.float32, tf.float32), \
                     output_shapes=(tf.TensorShape(self.config_model["input_shape"]), \
                             tf.TensorShape(list(self.cart_shape[1:3]) + \

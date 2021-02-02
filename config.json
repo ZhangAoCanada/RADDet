@@ -23,6 +23,7 @@
 
 		"TRAIN" :
 		{
+				"if_validate": true,
 				"epochs" : 1000,
 				"batch_size" : 3,
 				"focal_loss_iou_threshold" : 0.3,
@@ -34,8 +35,8 @@
 				"startup_steps": 1000,
 				"learningrate_startup": 0.0001,
 				"warmup_steps": 60000,
-				"test_start_steps": 10000,
-				"test_gap": 10000
+				"validate_start_steps": 10000,
+				"validate_gap": 10000
 		},
 
 		"EVALUATE" :

@@ -1,8 +1,6 @@
 import os
 os.environ["CUDA_DEVICE_ORDER"]="PCI_BUS_ID"
-# os.environ["CUDA_VISIBLE_DEVICES"]="0"
-# os.environ["CUDA_VISIBLE_DEVICES"]="1"
-os.environ["CUDA_VISIBLE_DEVICES"]="2"
+os.environ["CUDA_VISIBLE_DEVICES"]="0"
 
 import shutil
 import cv2
@@ -52,7 +50,7 @@ def main():
     data_generator = DataGenerator(config_data, config_train, config_model, \
                                 model.features_shape, anchor_boxes)
     train_generator = data_generator.trainGenerator()
-    test_generator = data_generator.testGenerator()
+    validate_generator = data_generator.validateGenerator()
 
     ### NOTE: training settings ###
     logdir = os.path.join(config_train["log_dir"], \
@@ -97,7 +95,7 @@ def main():
             writer.flush()
         return total_loss, box_loss, conf_loss, category_loss
  
-    ### NOTE: define testing step ###
+    ### NOTE: define validate step ###
     # @tf.function
     def test_step():
         mean_ap_test = 0.0
@@ -109,8 +107,8 @@ def main():
         category_losstest = []
         for class_id in range(num_classes):
             ap_all_class.append([])
-        for data, label, raw_boxes in test_generator.repeat().\
-            batch(data_generator.batch_size).take(data_generator.total_test_batches):
+        for data, label, raw_boxes in validate_generator.\
+            batch(data_generator.batch_size).take(data_generator.total_validate_batches):
             feature = model(data)
             pred_raw, pred = model.decodeYolo(feature)
             total_loss_b, box_loss_b, conf_loss_b, category_loss_b = \
@@ -136,7 +134,7 @@ def main():
             else:
                 class_ap = np.mean(ap_class_i)
             ap_all_class_test.append(class_ap)
-        mean_ap_test /= data_generator.batch_size*data_generator.total_test_batches
+        mean_ap_test /= data_generator.batch_size*data_generator.total_validate_batches
         tf.print("-------> ap: %.6f"%(mean_ap_test))
         ### writing summary data ###
         with writer.as_default():
@@ -182,15 +180,10 @@ def main():
                     config_train["learningrate_decay"] * \
                     (lr - config_train["learningrate_end"])
             optimizer.lr.assign(lr)
-        ### TODO: cross-validation like data generation ###
-        # if global_steps % config_train["test_gap"] == 0:
-            # print("************* re-shuffle train set and test set ***************")
-            # data_generator.sequences_train, \
-                    # data_generator.sequences_test = data_generator.splitSequences()
  
-        ###---------------------------- TEST SET -------------------------###
-        if global_steps.numpy() >= config_train["test_start_steps"] and \
-                global_steps.numpy() % config_train["test_gap"] == 0:
+        ###---------------------------- VALIDATE SET -------------------------###
+        if global_steps.numpy() >= config_train["validate_start_steps"] and \
+                global_steps.numpy() % config_train["validate_gap"] == 0:
             test_step()
             save_path = manager.save()
             print("Saved checkpoint for step {}: {}".format(int(ckpt.step), save_path))
