@@ -1,8 +1,9 @@
-# Thesis: Object Detection from FMCW Radar using Deep Learning
+# RADDet
+## Range-Azimuth-Doppler based Radar Object Detection for Dynamic Road Users
+Preparing paper
 
-## Current Model Output Example
-
-The following `.gif` is an example of the latest model.
+## what is it
+The following `.gif` is an example of the our model.
 <p align="center">
   <img src="./images/ShowCase.gif">
 </p>
