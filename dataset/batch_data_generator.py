@@ -28,8 +28,6 @@ class DataGenerator:
         self.RAD_sequences_train, self.RAD_sequences_validate = \
                                 self.splitTrain(self.RAD_sequences_train)
 
-        self.RAD_sequences_validate = self.RAD_sequences_validate
-
         self.batch_size = config_train["batch_size"]
         self.total_train_batches = (self.config_train["epochs"] * \
                                     len(self.RAD_sequences_train)) // self.batch_size
