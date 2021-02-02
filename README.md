@@ -192,6 +192,6 @@ Also, feel free to change other training settings,
 
 ## Pre-trained checkpoint
 
-For pre-trained `.ckpt`, goto [CheckPoint](https://drive.google.com/drive/folders/1EZQtcAUzVKYmYHDuiiV_FB5Obk7PbSoE?usp=sharing)
+Pre-trained `.ckpt` for RADDet is available at [CheckPoint](https://drive.google.com/drive/folders/1EZQtcAUzVKYmYHDuiiV_FB5Obk7PbSoE?usp=sharing)
 
 After downloading `.ckpt`, create a directory `./logs` and put the checkpoint file inside it.
