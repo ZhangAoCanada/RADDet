@@ -12,21 +12,14 @@ def extractYoloInfo(yolo_output_format_data):
     category = yolo_output_format_data[..., 7:]
     return box, conf, category
         
-def giouLoss(pred_box, gt_box, gt_conf, input_size, if_box_loss_scale=True):
-    """ Generalized IOU loss function on bounding boxes """
+def yolo1Loss(pred_box, gt_box, gt_conf, input_size, if_box_loss_scale=True):
+    """ loss function for box regression \cite{YOLOV1} """
     assert pred_box.shape == gt_box.shape
-    ### TODO: after fix iou, try giou ###
-    # giou = helper.tf_giou3d(pred_box, gt_box, input_size)
-    # giou = helper.tf_iou3d(pred_box, gt_box, input_size)
-    # giou = tf.expand_dims(giou, axis=-1)
     if if_box_loss_scale:
         scale = 2.0 - 1.0 * gt_box[..., 3:4] * gt_box[..., 4:5] * gt_box[..., 5:6] /\
                                     (input_size[0] * input_size[1] * input_size[2])
     else:
         scale = 1.0
-    # giou_loss = gt_conf * scale * (1. - giou)
-    ### NOTE: L2 loss function ###
-    # giou_loss = gt_conf * scale * tf.square(pred_box - gt_box)
     ### NOTE: YOLOv1 original loss function ###
     giou_loss = gt_conf * scale * (tf.square(pred_box[..., :3] - gt_box[..., :3]) + \
                     tf.square(tf.sqrt(pred_box[..., 3:]) - tf.sqrt(gt_box[..., 3:])))
@@ -42,20 +35,14 @@ def focalLoss(raw_conf, pred_conf, gt_conf, pred_box, raw_boxes, input_size, \
 
     gt_conf_negative = (1.0 - gt_conf) * tf.cast(max_iou < iou_loss_threshold, tf.float32)
     conf_focal = tf.pow(gt_conf - pred_conf, 2)
-    delta = 0.01
-    # delta = 0.1
-    # delta = 1
-
-    # gt_conf_negative = (1.0 - gt_conf)
-    # conf_focal = 1.
-    # delta = 0.3
+    alpha = 0.01
 
     ###### TODO: think, whether we have to seperate logits with decoded outputs #######
     focal_loss = conf_focal * (\
             gt_conf * tf.nn.sigmoid_cross_entropy_with_logits(labels=gt_conf, \
                                                             logits=raw_conf) \
             + \
-            delta * gt_conf_negative * \
+            alpha * gt_conf_negative * \
                     tf.nn.sigmoid_cross_entropy_with_logits(labels=gt_conf, \
                                                             logits=raw_conf) \
             )
@@ -83,7 +70,7 @@ def lossYolo(pred_raw, pred, label, raw_boxes, input_size, focal_loss_iou_thresh
     raw_box, raw_conf, raw_category = extractYoloInfo(pred_raw)
     pred_box, pred_conf, pred_category = extractYoloInfo(pred)
     gt_box, gt_conf, gt_category = extractYoloInfo(label)
-    giou_loss = giouLoss(pred_box, gt_box, gt_conf, input_size, \
+    giou_loss = yolo1Loss(pred_box, gt_box, gt_conf, input_size, \
                             if_box_loss_scale=False)
     focal_loss = focalLoss(raw_conf, pred_conf, gt_conf, pred_box, raw_boxes, \
                             input_size, focal_loss_iou_threshold)

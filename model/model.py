@@ -8,41 +8,34 @@ import model.backbone_radarResNet as radarResNet
 import model.head_YOLO as yolohead
 import model.loss_functions as loss_func
 
-class ROLO(K.Model):
+class RADDet(K.Model):
     def __init__(self, config_model, config_data, config_train, anchor_boxes):
         """ make sure the model is buit when initializint the class.
         Only by this, the graph could be built and the trainable_variables 
         could be initialized """
-        super(ROLO, self).__init__()
+        super(RADDet, self).__init__()
         assert (isinstance(config_model["input_shape"], tuple) or \
                 isinstance(config_model["input_shape"], list))
-
         self.input_size = list(config_model["input_shape"])
         self.input_channels = self.input_size[-1]
         self.num_class = len(config_data["all_classes"])
         self.anchor_boxes = anchor_boxes
         self.yolohead_xyz_scales = config_model["yolohead_xyz_scales"]
         self.focal_loss_iou_threshold = config_train["focal_loss_iou_threshold"]
-
         self.model = self.buildModel()
-        ### TODO: build all the followings ###
-        self.class_head = None
-        self.bbox_head = None
-        self.segmentation_head = None
 
     def buildModel(self,):
         """ attention: building the model at last few lines of this 
         function is important """
-        ### TODO: choose one: ambiguously define the shape or ###
         input_tensor = K.layers.Input(self.input_size)
         ### for convenience ###
         conv = input_tensor
 
-        ### TODO: backbones ###
+        ### NOTE: backbones ###
         # features = vgg.radarVGG3D(conv, )
         features = radarResNet.radarResNet3D(conv, )
 
-        ### TODO: try to extract raw feature maps ###
+        ### NOTE: define backbone model for 2D Boxes ###
         self.backbone_stage = K.Model(input_tensor, features)
         self.backbone_fmp_shape = features.shape[1:]
 

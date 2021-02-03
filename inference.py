@@ -1,9 +1,7 @@
 import os
 os.environ["CUDA_DEVICE_ORDER"]="PCI_BUS_ID"
-# os.environ["CUDA_VISIBLE_DEVICES"]="0"
-os.environ["CUDA_VISIBLE_DEVICES"]="1"
-# os.environ["CUDA_VISIBLE_DEVICES"]="3"
-# os.environ["CUDA_VISIBLE_DEVICES"]="0,1"
+os.environ["CUDA_VISIBLE_DEVICES"]="0"
+
 import cv2
 import numpy as np
 import tensorflow as tf
@@ -98,13 +96,13 @@ def main():
     num_classes = len(config_data["all_classes"])
 
     ### NOTE: using the yolo head shape out from model for data generator ###
-    model = M.ROLO(config_model, config_data, config_train, anchor_boxes)
+    model = M.RADDet(config_model, config_data, config_train, anchor_boxes)
     model.build([None] + config_model["input_shape"])
     model.backbone_stage.summary()
     model.summary()
 
     ### NOTE: building another model for Cartesian Boxes ###
-    model_cart = MCart.ROLOCart(config_model, config_data, config_train, \
+    model_cart = MCart.RADDetCart(config_model, config_data, config_train, \
                                 anchor_cart, list(model.backbone_fmp_shape))
     model_cart.build([None] + model.backbone_fmp_shape)
     model_cart.summary()
@@ -184,10 +182,6 @@ def main():
                                     config_inference["nms_iou3d_threshold"], \
                                     config_model["input_shape"], \
                                     sigma=0.3, method="nms")
-            # nms_pred = helper.nmsOverClass(predicitons, \
-                                    # config_inference["nms_iou3d_threshold"], \
-                                    # config_model["input_shape"], \
-                                    # sigma=0.3, method="nms")
             model_RAD_st.append(time.time() - model_RAD_time_start)
             if if_evaluate_cart:
                 model_cart_time_start = time.time()
@@ -201,10 +195,6 @@ def main():
                                         config_inference["nms_iou3d_threshold"], \
                                         config_model["input_shape"], \
                                         sigma=0.3, method="nms")
-                # nms_pred_cart = helper.nms2DOverClass(predicitons_cart, \
-                                        # config_inference["nms_iou3d_threshold"], \
-                                        # config_model["input_shape"], \
-                                        # sigma=0.3, method="nms")
                 model_cart_st.append(time.time() - model_cart_time_start)
             else:
                 nms_pred_cart = None

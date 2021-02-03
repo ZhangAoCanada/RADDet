@@ -24,7 +24,7 @@ class DataGenerator:
         self.anchor_boxes_cart = anchors_cart
         self.RAD_sequences_train = self.readSequences(mode="train")
         self.RAD_sequences_test = self.readSequences(mode="test")
-
+        ### NOTE: if "if_validat" set true in "config.json", it will split trainset ###
         self.RAD_sequences_train, self.RAD_sequences_validate = \
                                 self.splitTrain(self.RAD_sequences_train)
 
@@ -149,7 +149,8 @@ class DataGenerator:
             gt_instances = loader.readRadarInstances(gt_filename)
             if gt_instances is None:
                 raise ValueError("gt file not found, please double check the path")
-            ### TODO: consider whether to change the box to raw yolohead output format ###
+
+            ### NOTE: decode ground truth boxes to YOLO format ###
             gt_labels, has_label, raw_boxes = self.encodeToLabels(gt_instances)
 
             if has_label:
@@ -177,7 +178,8 @@ class DataGenerator:
             gt_instances = loader.readRadarInstances(gt_filename)
             if gt_instances is None:
                 raise ValueError("gt file not found, please double check the path")
-            ### TODO: consider whether to change the box to raw yolohead output format ###
+
+            ### NOTE: decode ground truth boxes to YOLO format ###
             gt_labels, has_label, raw_boxes = self.encodeToLabels(gt_instances)
 
             if has_label:
@@ -202,7 +204,8 @@ class DataGenerator:
             gt_instances = loader.readRadarInstances(gt_filename)
             if gt_instances is None:
                 raise ValueError("gt file not found, please double check the path")
-            ### TODO: consider whether to change the box to raw yolohead output format ###
+
+            ### NOTE: decode ground truth boxes to YOLO format ###
             gt_labels, has_label, raw_boxes = self.encodeToLabels(gt_instances)
 
             if has_label:
@@ -339,7 +342,7 @@ class DataGenerator:
             if gt_instances is None:
                 raise ValueError("gt file not found, please double check the path")
 
-            ### TODO: consider whether to change the box to raw yolohead output format ###
+            ### NOTE: decode ground truth boxes to YOLO format ###
             gt_labels, has_label, raw_boxes = self.encodeToCartBoxesLabels(gt_instances)
 
             if has_label:
@@ -369,7 +372,8 @@ class DataGenerator:
             gt_instances = loader.readRadarInstances(gt_filename)
             if gt_instances is None:
                 raise ValueError("gt file not found, please double check the path")
-            ### TODO: consider whether to change the box to raw yolohead output format ###
+
+            ### NOTE: decode ground truth boxes to YOLO format ###
             gt_labels, has_label, raw_boxes = self.encodeToCartBoxesLabels(gt_instances)
 
             if has_label:
@@ -396,7 +400,8 @@ class DataGenerator:
             gt_instances = loader.readRadarInstances(gt_filename)
             if gt_instances is None:
                 raise ValueError("gt file not found, please double check the path")
-            ### TODO: consider whether to change the box to raw yolohead output format ###
+
+            ### NOTE: decode ground truth boxes to YOLO format ###
             gt_labels, has_label, raw_boxes = self.encodeToCartBoxesLabels(gt_instances)
 
             if has_label:

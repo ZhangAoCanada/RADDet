@@ -49,8 +49,6 @@ def process(RAD_filename, config_data, config_radar, colors, \
         RA_cart_img = helper.norm2Image(RA_cart)[..., :3]
 
         drawer.clearAxes(axes)
-        # drawer.drawRadarInstances(RD_img, RA_img, RA_cart_img, gt_instances, \
-                        # config_radar, config_data["all_classes"], colors, axes)
         drawer.drawRadarBoxes(stereo_left_image, RD_img, RA_img, RA_cart_img, \
                             gt_instances, config_data["all_classes"], colors, axes)
         if not canvas_draw:

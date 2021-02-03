@@ -33,8 +33,8 @@ def bottleneckResidualBlock(x, channel_expansion, strides=(1,1), use_bias=False)
                             strides, "same", "relu", use_bias=use_bias, bn=True)
     conv = L.convolution2D(conv, int(input_channel*channel_expansion), 3, \
                             (1,1), "same", "relu", use_bias=use_bias, bn=True)
-    # conv = L.convolution2D(conv, conv.shape[-1], 1, \
-                            # (1,1), "same", "relu", use_bias=use_bias, bn=True)
+    conv = L.convolution2D(conv, conv.shape[-1], 1, \
+                            (1,1), "same", "relu", use_bias=use_bias, bn=True)
     ### shortcut for the original input ###
     if any(val != 1 for val in strides) or channel_expansion != 1:
         conv_shortcut = L.convolution2D(x, int(input_channel*channel_expansion), 3, \
@@ -72,13 +72,8 @@ def repeatBlock(conv, repeat_times, all_strides=None, all_expansions=None, \
         strides = (all_strides[i], all_strides[i])
         expansion = all_expansions[i]
         conv = basicResidualBlock(conv, expansion, strides, use_bias=True) 
-        # if i == repeat_times - 1:
-            # conv = bottleneckResidualBlock(conv, expansion, strides, use_bias=True) 
-        # else:
-            # conv = basicResidualBlock(conv, expansion, strides, use_bias=True) 
     if feature_maps_downsample:
         conv = L.maxPooling2D(conv)
-        # conv = L.convPooling2D(conv, use_bias=False, bn=True)
     return conv
 
 def radarResNet3D(x, ):
@@ -110,6 +105,8 @@ def radarResNet3D(x, ):
             feature_stages.append(conv)
     for stage_i in feature_stages:
         print("--- backbone stage shape ---", stage_i.shape)
+
+    ### NOTE: since we are doing one-level output, only last level is used ###
     features = feature_stages[-1]
 
     return features

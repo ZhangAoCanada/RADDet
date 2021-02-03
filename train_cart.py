@@ -42,13 +42,11 @@ def main():
     num_classes = len(config_data["all_classes"])
 
     ### NOTE: using the yolo head shape out from model for data generator ###
-    # strategy = tf.distribute.MirroredStrategy()
-    # with strategy.scope():
-    model = M.ROLO(config_model, config_data, config_train, anchor_boxes)
+    model = M.RADDet(config_model, config_data, config_train, anchor_boxes)
     model.build([None] + config_model["input_shape"])
 
     ### NOTE: building another model for Cartesian Boxes ###
-    model_cart = MCart.ROLOCart(config_model, config_data, config_train, \
+    model_cart = MCart.RADDetCart(config_model, config_data, config_train, \
                                 anchor_cart, list(model.backbone_fmp_shape))
     model_cart.build([None] + model.backbone_fmp_shape)
     model_cart.summary()
@@ -106,9 +104,6 @@ def main():
             total_loss, box_loss, conf_loss, category_loss = \
                 model_cart.loss(pred_raw, pred, label, raw_boxes[..., :4])
             gradients = tape.gradient(total_loss, model_cart.trainable_variables)
-            ###--------------- gradient clipping --------------###
-            # gradients = [tf.clip_by_value(grad, -1., 1.) for grad in gradients]
-            ###------------------------------------------------###
             optimizer.apply_gradients(zip(gradients, model_cart.trainable_variables))
             ### NOTE: writing summary data ###
             with writer.as_default():
@@ -122,7 +117,7 @@ def main():
     
     ### NOTE: define validate step ###
     # @tf.function
-    def test_step():
+    def validate_step():
         mean_ap_test = 0.0
         ap_all_class_test = []
         ap_all_class = []
@@ -172,18 +167,17 @@ def main():
             tf.summary.scalar("ap/ap_motorcycle", ap_all_class_test[3], step=global_steps)
             tf.summary.scalar("ap/ap_bus", ap_all_class_test[4], step=global_steps)
             tf.summary.scalar("ap/ap_truck", ap_all_class_test[5], step=global_steps)
-            ### NOTE: test loss ###
-            tf.summary.scalar("test_loss/total_loss", \
+            ### NOTE: validate loss ###
+            tf.summary.scalar("validate_loss/total_loss", \
                     np.mean(total_losstest), step=global_steps)
-            tf.summary.scalar("test_loss/box_loss", \
+            tf.summary.scalar("validate_loss/box_loss", \
                     np.mean(box_losstest), step=global_steps)
-            tf.summary.scalar("test_loss/conf_loss", \
+            tf.summary.scalar("validate_loss/conf_loss", \
                     np.mean(conf_losstest), step=global_steps)
-            tf.summary.scalar("test_loss/category_loss", \
+            tf.summary.scalar("validate_loss/category_loss", \
                     np.mean(category_losstest), step=global_steps)
         writer.flush()
 
-    ### NOTE: training ###
     ###---------------------------- TRAIN SET -------------------------###
     for data, label, raw_boxes in train_cart_generator.repeat().\
             batch(data_generator.batch_size).take(data_generator.total_train_batches):
@@ -211,7 +205,7 @@ def main():
         ###---------------------------- VALIDATE SET -------------------------###
         if global_steps.numpy() >= config_train["validate_start_steps"] and \
                 global_steps.numpy() % config_train["validate_gap"] == 0:
-            test_step()
+            validate_step()
             save_path = manager.save()
             print("Saved checkpoint for step {}: {}".format(int(ckpt.step), save_path))
 

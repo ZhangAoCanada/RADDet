@@ -5,16 +5,14 @@ import model.layers as L
 import util.helper as helper
 
 
-class ROLOCart(K.Model):
+class RADDetCart(K.Model):
     def __init__(self, config_model, config_data, config_train, \
                         anchor_boxes, input_shape):
         """ make sure the model is buit when initializint the class.
         Only by this, the graph could be built and the trainable_variables 
         could be initialized """
-        super(ROLOCart, self).__init__()
+        super(RADDetCart, self).__init__()
         assert (isinstance(input_shape, tuple) or isinstance(input_shape, list))
-        ### see if all the anchor numbers equals to the anchors length ###
-
         self.config_model = config_model
         self.config_data = config_data
         self.config_train = config_train
@@ -28,10 +26,10 @@ class ROLOCart(K.Model):
     def buildModel(self,):
         """ attention: building the model at last few lines of this 
         function is important """
-        ### TODO: choose one: ambiguously define the shape or ###
         input_tensor = K.layers.Input(self.input_size)
         ### for convenience ###
         conv = input_tensor
+        ### NOTE: channel-wise MLP ###
         conv = tf.transpose(conv, perm=[0, 3, 1, 2])
         conv = tf.reshape(conv, [-1, int(conv.shape[1]), \
                                 int(conv.shape[2]*conv.shape[3])])
@@ -42,7 +40,7 @@ class ROLOCart(K.Model):
                     int(self.input_size[0]), int(self.input_size[1]*2)])
         conv = tf.transpose(conv, perm=[0, 2, 3, 1])
 
-        ### TODO: residual block ###
+        ### NOTE: residual block ###
         conv_shortcut = conv
         conv = L.convolution2D(conv, conv.shape[-1], 3, \
                                 (1,1), "same", "relu", use_bias=True, bn=True)
@@ -78,10 +76,7 @@ class ROLOCart(K.Model):
 
         xy_grid = tf.meshgrid(tf.range(yolo_raw.shape[1]), tf.range(yolo_raw.shape[2]))
         xy_grid = tf.expand_dims(tf.stack(xy_grid, axis=-1), axis=2)
-        ############ TODO: whether add this swap axes ##############
-        # xy_grid = helper.switchAxes(xy_grid, [0,1])
         xy_grid = tf.transpose(xy_grid, perm=[1,0,2,3])
-        ############################################################
         xy_grid = tf.tile(tf.expand_dims(xy_grid, axis=0), \
                         [tf.shape(yolo_raw)[0], 1, 1, len(self.anchor_boxes), 1])
         xy_grid = tf.cast(xy_grid, tf.float32)
@@ -114,9 +109,6 @@ class ROLOCart(K.Model):
         ### NOTE: box regression (YOLOv1 Loss Function) ###
         box_loss = gt_conf * (tf.square(pred_box[..., :2] - gt_box[..., :2]) + \
                 tf.square(tf.sqrt(pred_box[..., 2:]) - tf.sqrt(gt_box[..., 2:])))
-        # iou = helper.tf_iou2d(pred_box, gt_box)
-        # iou = tf.expand_dims(giou, axis=-1)
-        # box_loss = gt_conf * scale * (1. - iou)
 
         ### NOTE: focal loss function ###
         iou = helper.tf_iou2d(pred_box[:, :, :, :, tf.newaxis, :],\
@@ -125,18 +117,12 @@ class ROLOCart(K.Model):
         gt_conf_negative = (1.0 - gt_conf) * tf.cast(max_iou < \
                 self.config_train["focal_loss_iou_threshold"], tf.float32)
         conf_focal = tf.pow(gt_conf - pred_conf, 2)
-        delta = 0.01
-        # delta = 1
-
-        # gt_conf_negative = (1.0 - gt_conf)
-        # conf_focal = 1.
-        # delta = 0.01
-
+        alpha = 0.01
         conf_loss = conf_focal * (\
                 gt_conf * tf.nn.sigmoid_cross_entropy_with_logits(labels=gt_conf, \
                                                                 logits=raw_conf) \
                 + \
-                delta * gt_conf_negative * \
+                alpha * gt_conf_negative * \
                         tf.nn.sigmoid_cross_entropy_with_logits(labels=gt_conf, \
                                                                 logits=raw_conf))
 
