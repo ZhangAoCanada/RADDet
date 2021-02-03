@@ -77,7 +77,7 @@ gt:		ground truth with {"classes", "boxes", "cart_boxes"}
 
 We also conducted some statistic analysis on the dataset. The figure below illustrates the number of objects of each category in the whole dataset, along with maximum number of ojbects within one single frame.
 <p align="center">
-  <img src="./images/dataset_statistics/number_objects.png" height="150">
+  <img src="./images/dataset_statistics/number_objects.png" height="200">
 </p>
 Due to the reason that most scenes are captured on either the side-walks or near the traffic lights, it appears that category "car" dominates the dataset. Still, we can see there is a good portion of the frames that have "people" inside.
 
