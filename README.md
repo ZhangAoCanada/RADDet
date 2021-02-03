@@ -127,25 +127,26 @@ Download the dataset and arrange it as the folloing directory tree,
 ```bash
 |-- train
 	|-- RAD
-		|-- ******.npy
-		|-- ******.npy
+		|-- part1
+			|-- ******.npy
+			|-- ******.npy
+		|-- part2
+			|-- ******.npy
+			|-- ******.npy
 	|-- gt
-		|-- ******.pickle
-		|-- ******.pickle
+		|-- part1
+			|-- ******.pickle
+			|-- ******.pickle
+		|-- part2
+			|-- ******.pickle
+			|-- ******.pickle
 	|-- stereo_image
-		|-- ******.jpg
-		|-- ******.jpg
-
-|-- test
-	|-- RAD
-		|-- ******.npy
-		|-- ******.npy
-	|-- gt
-		|-- ******.pickle
-		|-- ******.pickle
-	|-- stereo_image
-		|-- ******.jpg
-		|-- ******.jpg
+		|-- part1
+			|-- ******.jpg
+			|-- ******.jpg
+		|-- part2
+			|-- ******.jpg
+			|-- ******.jpg
 ```
 
 ## Train<a name="train"/>
