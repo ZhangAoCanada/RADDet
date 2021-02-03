@@ -77,13 +77,13 @@ gt:		ground truth with {"classes", "boxes", "cart_boxes"}
 
 We also conducted some statistic analysis on the dataset. The figure below illustrates the number of objects of each category in the whole dataset, along with maximum number of ojbects within one single frame.
 <p align="center">
-  <img src="./images/dataset_statistics/number_objects.png" width="600">
+  <img src="./images/dataset_statistics/number_objects.png" width="650">
 </p>
 Due to the reason that most scenes are captured on either the side-walks or near the traffic lights, it appears that category "car" dominates the dataset. Still, we can see there is a good portion of the frames that have "people" inside.
 
 Since radar is mainly a distance sensor, we also did an analysis on the range distributions. The picture shown below tells about the information.
 <p align="center">
-  <img src="./images/dataset_statistics/range_distribution.png" width="600">
+  <img src="./images/dataset_statistics/range_distribution.png" width="650">
 </p>
 Ideally, the distribution should be Uniform. In really life scenario, it is hard to detect far-away objects (objects that almost reach the maxixmum range) using only 1 radar sensor. As for the objects that are too close to the radar, it becomes extremely noisy. This makes the annotation for those objects a little bit impractical.
 
