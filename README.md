@@ -114,11 +114,6 @@ Since our inputs are RAD tensors only, we propose a Coordinate Transformation bl
   <img src="./images/channel-wise_MLP.jpg">
 </p>
 
-Due to our dual detection head is a one-stage, single frame, anchor-based detection head, the anchor boxes for both 3D and 2D heads are defined by K-means Clustering.
-<p align="center">
-  <img src="./images/anchors.png" width="600">
-</p>
-
 # How to use<a name="howtouse"/>
 
 **Attention:** Please keep the same directory tree as shown in [GoogleDrive](https://drive.google.com/drive/folders/1v-AF873jP8p6waChF3pSSqz6HXOOZgkC?usp=sharing).
@@ -191,3 +186,10 @@ Also, feel free to change other evaluate settings,
 Pre-trained `.ckpt` for RADDet is available at [CheckPoint](https://drive.google.com/drive/folders/1EZQtcAUzVKYmYHDuiiV_FB5Obk7PbSoE?usp=sharing)
 
 After downloading `.ckpt`, create a directory `./logs` and put the checkpoint file inside it.
+
+## Visualization of performance on Test set
+
+The following figure shows the performance of our model on Test set. Last row shows the common types of false detections that found during the test.
+<p align="center">
+  <img src="./images/testset_samples.png width=600>
+</p>
