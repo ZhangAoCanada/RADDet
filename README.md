@@ -22,6 +22,8 @@ Current State: preparing paper
 * [How to use](#howtouse)
 	* [Train](#train)
 	* [Test](#test)
+* [Pre-trained Checkpoint](#ckpt)
+* [Visualization on Test set](#testsamples)
 <!--te-->
 
 # Requirements<a name="requirements"/>
@@ -181,13 +183,13 @@ Also, feel free to change other evaluate settings,
 }
 ```
 
-## Pre-trained checkpoint
+## Pre-trained checkpoint<a name="ckpt"/>
 
 Pre-trained `.ckpt` for RADDet is available at [CheckPoint](https://drive.google.com/drive/folders/1EZQtcAUzVKYmYHDuiiV_FB5Obk7PbSoE?usp=sharing)
 
 After downloading `.ckpt`, create a directory `./logs` and put the checkpoint file inside it.
 
-## Visualization of performance on Test set
+## Visualization of performance on Test set<a name="testsamples"/>
 
 The following figure shows the performance of our model on Test set. Last row shows the common types of false detections that found during the test.
 <!--<p align="center">-->
