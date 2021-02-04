@@ -191,5 +191,5 @@ After downloading `.ckpt`, create a directory `./logs` and put the checkpoint fi
 
 The following figure shows the performance of our model on Test set. Last row shows the common types of false detections that found during the test.
 <p align="center">
-  <img src="./images/testset_samples.png width=600>
+  <img src="./images/testset_samples.png" width="600">
 </p>
