@@ -31,8 +31,8 @@ def bottleneckResidualBlock(x, channel_expansion, strides=(1,1), use_bias=False)
                             (1,1), "same", "relu", use_bias=use_bias, bn=True)
     conv = L.convolution2D(x, input_channel, 3, \
                             strides, "same", "relu", use_bias=use_bias, bn=True)
-    # conv = L.convolution2D(conv, int(input_channel*channel_expansion), 3, \
-                            # (1,1), "same", "relu", use_bias=use_bias, bn=True)
+    conv = L.convolution2D(conv, int(input_channel*channel_expansion), 3, \
+                            (1,1), "same", "relu", use_bias=use_bias, bn=True)
     conv = L.convolution2D(conv, conv.shape[-1], 1, \
                             (1,1), "same", "relu", use_bias=use_bias, bn=True)
     ### shortcut for the original input ###
