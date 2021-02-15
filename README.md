@@ -5,7 +5,11 @@ The following `.gif` is an example of the our model.
   <img src="./images/ShowCase.gif">
 </p>
 
-Current State: preparing paper
+## NOTICE
+
+- Current State: preparing paper
+
+- Announce: we are still trying different backbone layers. Therefore, the current backbone layers may vary from the original implementations.
 
 # List of Contents
 
