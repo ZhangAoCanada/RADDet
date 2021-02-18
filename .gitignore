@@ -5,4 +5,5 @@ metrics/__pycache__
 model/__pycache__
 util/__pycache__
 images/inference_plots
+images/samples
 logs

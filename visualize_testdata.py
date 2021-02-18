@@ -22,7 +22,7 @@ def cutImage(image_name):
     new_img = np.concatenate([part_1, part_2, part_3, part_4], axis=1)
     cv2.imwrite(image_name, new_img)
 
-def process(RAD_filename, config_data, config_radar, colors, \
+def process(RAD_filename, frame_id, config_data, config_radar, colors, \
             fig, axes, interpolation=15, canvas_draw=False):
     RAD = loader.readRAD(RAD_filename)
     if "train" in RAD_filename: 
@@ -76,6 +76,7 @@ def main(canvas_draw=False):
         RAD_filename = all_RAD_files[i]
         process(
                 RAD_filename=RAD_filename, \
+                frame_id = i, \
                 config_data=config_data, \
                 config_radar=config_radar, \
                 colors=colors, \
