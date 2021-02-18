@@ -9,7 +9,7 @@ The following `.gif` contains inference samples from our model.
 
 - Current State: preparing paper
 
-- Announce: we are still trying different backbone layers. Therefore, the current backbone layers may vary from the original implementations.
+- Announcement: we are still trying different backbone layers. Therefore, the current backbone layers may vary from the original implementations.
 
 # List of Contents
 
