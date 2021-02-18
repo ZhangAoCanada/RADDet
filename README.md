@@ -116,9 +116,9 @@ We also tried [VGG](https://arxiv.org/abs/1409.1556), which is faster but lower 
 Also shown as the image above, the RADDet has two detection heads, we call it dual detection head. These heads can detection the objects on both Range-Azimuth-Doppler (RAD) tensors and Cartesian coordinates. Both heads are developed under the inspiration of [YOLOv3](https://arxiv.org/abs/1804.02767), [YOLOv4](https://arxiv.org/abs/2004.10934).
 
 Since our inputs are RAD tensors only, we propose a Coordinate Transformation block to transform the raw feature maps from Polar Coordinates to Cartesian Coordinates. The core of it is Channel-wise Fully Connected Layers.
-<p align="center">
-  <img src="./images/channel-wise_MLP.jpg">
-</p>
+<!--<p align="center">-->
+  <!--<img src="./images/channel-wise_MLP.jpg">-->
+<!--</p>-->
 
 # How to use<a name="howtouse"/>
 
