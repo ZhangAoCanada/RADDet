@@ -1,6 +1,6 @@
 # RADDet
 ## Range-Azimuth-Doppler based Radar Object Detection for Dynamic Road Users
-The following `.gif` is an example of the our model.
+The following `.gif` contains inference samples from our model.
 <p align="center">
   <img src="./images/ShowCase.gif">
 </p>
