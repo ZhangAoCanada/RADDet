@@ -91,10 +91,10 @@ Since radar is mainly a distance sensor, we also did an analysis on the range di
 <p align="center">
   <img src="./images/dataset_statistics/range_distribution.png" width="650">
 </p>
-Ideally, the distribution should be Uniform. In really life scenario, it is hard to detect far-away objects (objects that almost reach the maxixmum range) using only 1 radar sensor. As for the objects that are too close to the radar, it becomes extremely noisy. This makes the annotation for those objects a little bit impractical.
+Ideally, the distribution should be Uniform. In really life scenario, it is hard to detect far-away objects (objects that almost reach the maximum range) using only 1 radar sensor. As for the objects that are too close to the radar, it becomes extremely noisy. This makes the annotation for those objects a little bit impractical.
 
 ## Train set and Test set<a name="traintest"/>
-- Dataset splitting: **80%** goes to trainset, and **20%** goes to testset. The processing is implemented as `dataset/split_sequences.py`. As the distributions of the trainset and testset, it is concluded as follow,
+- Dataset splitting: **80%** goes to trainset, and **20%** goes to testset. The process is implemented as `dataset/split_sequences.py`. As the distributions of the trainset and testset, it is concluded as follow,
 ```
 trainset: {'person': 5210, 'bicycle': 729, 'car': 13537, 'motorcycle': 67, 'bus': 176, 'truck': 3042}
 testset:  {'person': 1280, 'bicycle': 204, 'car':  3377, 'motorcycle': 21, 'bus':  38, 'truck':  720}
@@ -113,7 +113,7 @@ We also tried [VGG](https://arxiv.org/abs/1409.1556), which is faster but lower 
 
 ## Dual Detection Head<a name="head"/>
 
-Also shown as the image above, the RADDet has two detection heads, we call it dual detection head. These heads can detection the objects on both Range-Azimuth-Doppler (RAD) tensors and Cartesian coordinates. Both heads are developed under the inspiration of [YOLOv3](https://arxiv.org/abs/1804.02767), [YOLOv4](https://arxiv.org/abs/2004.10934).
+Also shown as the image above, the RADDet has two detection heads, we call it dual detection head. These heads can detect the objects on both Range-Azimuth-Doppler (RAD) tensors and Cartesian coordinates. Both heads are developed under the inspiration of [YOLOv3](https://arxiv.org/abs/1804.02767), [YOLOv4](https://arxiv.org/abs/2004.10934).
 
 Since our inputs are RAD tensors only, we propose a Coordinate Transformation block to transform the raw feature maps from Polar Coordinates to Cartesian Coordinates. The core of it is Channel-wise Fully Connected Layers.
 <!--<p align="center">-->
