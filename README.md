@@ -75,9 +75,11 @@ stereo_image:	2 rectified stereo images
 gt:		ground truth with {"classes", "boxes", "cart_boxes"}
 ```
 
-**Note:** for the "classes", they are `["person", "bicycle", "car", "motorcycle", "bus", "truck" ]`.
+**Note:** for the `classes`, they are `["person", "bicycle", "car", "motorcycle", "bus", "truck" ]`.
 
-**Also Note:** for the "boxes", the format is `[x_center, y_center, z_center, w, h, d]`.
+**Also Note:** for the `boxes`, the format is `[x_center, y_center, z_center, w, h, d]`.
+
+**Also Note:** for the `cart_box`, the format is `[x_center, y_center, w, h]`.
 
 ## Statistic Analysis<a name="statistic"/>
 
