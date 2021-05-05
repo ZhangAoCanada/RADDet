@@ -1,3 +1,5 @@
+# Title: RADDet
+# Authors: Ao Zhang, Erlik Nowruzi, Robert Laganiere
 import os
 import cv2
 import numpy as np

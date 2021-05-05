@@ -1,3 +1,5 @@
+# Title: RADDet
+# Authors: Ao Zhang, Erlik Nowruzi, Robert Laganiere
 import tensorflow as tf
 import tensorflow.keras as K
 import model.layers as L

@@ -1,3 +1,5 @@
+# Title: RADDet
+# Authors: Ao Zhang, Erlik Nowruzi, Robert Laganiere
 import os
 os.environ["CUDA_DEVICE_ORDER"]="PCI_BUS_ID"
 os.environ["CUDA_VISIBLE_DEVICES"]="0"

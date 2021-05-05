@@ -1,3 +1,5 @@
+# Title: RADDet
+# Authors: Ao Zhang, Erlik Nowruzi, Robert Laganiere
 import json
 import os
 import cv2

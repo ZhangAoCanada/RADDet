@@ -1,5 +1,5 @@
 # RADDet
-## Range-Azimuth-Doppler based Radar Object Detection for Dynamic Road Users
+## Range-Azimuth-Doppler based Radar Object Detection for Dynamic Road Users (CRV 2021)
 The following `.gif` contains inference samples from our model.
 <p align="center">
   <img src="./images/ShowCase.gif">
@@ -7,7 +7,7 @@ The following `.gif` contains inference samples from our model.
 
 ## NOTICE
 
-- Current State: preparing paper
+- Our paper is accepted by 2021 18th Conference on Robots and Vision (CRV). We also preprinted the paper, see [preprint](http://arxiv.org/abs/2105.00363).
 
 - Announcement: we are still trying different backbone layers. Therefore, the current backbone layers may vary from the original implementations.
 
@@ -124,7 +124,7 @@ Since our inputs are RAD tensors only, we propose a Coordinate Transformation bl
 
 # How to use<a name="howtouse"/>
 
-**Attention:** Please keep the same directory tree as shown in [GoogleDrive](https://drive.google.com/drive/folders/1v-AF873jP8p6waChF3pSSqz6HXOOZgkC?usp=sharing).
+**Attention:** Please keep the same directory tree as shown in [GoogleDrive](https://drive.google.com/drive/folders/1v-AF873jP8p6waChF3pSSqz6HXOOZgkC?usp=sharing) or [OneDrive](https://uottawa-my.sharepoint.com/personal/azhan085_uottawa_ca/_layouts/15/guestaccess.aspx?folderid=016d9f28644214b8c8813d618a3809365&authkey=ARvXPjc---r2wTFL6TEuY84&e=bwnfSO)
 
 Download the dataset and arrange it as the folloing directory tree,
 ```bash
