@@ -9,7 +9,7 @@ It can also be found at [Youtube](https://www.youtube.com/watch?v=cW3netyIYvs).
 
 ## NOTICE
 
-- Our paper is accepted by 2021 18th Conference on Robots and Vision (CRV). We also preprinted the paper, see [preprint](http://arxiv.org/abs/2105.00363).
+- Our paper is accepted by 2021 18th Conference on Robots and Vision (CRV). To read the paper, see [arXiv preprint](http://arxiv.org/abs/2105.00363) or [CRV Conference Version](https://conferences.computer.org/crvpub/pdfs/CRV2021-5lxYQfbyitLOxSuj2m30dr/141300a095/141300a095.pdf).
 
 - Announcement: we are still trying different backbone layers. Therefore, the current backbone layers may vary from the original implementations.
 
