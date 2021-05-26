@@ -5,6 +5,8 @@ The following `.gif` contains inference samples from our model.
   <img src="./images/ShowCase.gif">
 </p>
 
+It can also be found at [Youtube](https://www.youtube.com/watch?v=cW3netyIYvs).
+
 ## NOTICE
 
 - Our paper is accepted by 2021 18th Conference on Robots and Vision (CRV). We also preprinted the paper, see [preprint](http://arxiv.org/abs/2105.00363).
