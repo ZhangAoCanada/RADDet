@@ -51,7 +51,7 @@ $ pip install -r requirements.txt
 
 ## Dataset Link<a name="DatasetLink"/>
 
-For those who are interested in our dataset, [GoogleDrive](https://drive.google.com/drive/folders/1v-AF873jP8p6waChF3pSSqz6HXOOZgkC?usp=sharing) or [OneDrive](https://uottawa-my.sharepoint.com/personal/azhan085_uottawa_ca/_layouts/15/guestaccess.aspx?folderid=016d9f28644214b8c8813d618a3809365&authkey=ARvXPjc---r2wTFL6TEuY84&e=bwnfSO).
+For those who are interested in our dataset, [GoogleDrive](https://drive.google.com/drive/u/1/folders/1v-AF873jP8p6waChF3pSSqz6HXOOZgkC) or [OneDrive](https://uottawa-my.sharepoint.com/personal/azhan085_uottawa_ca/_layouts/15/guestaccess.aspx?folderid=016d9f28644214b8c8813d618a3809365&authkey=ARvXPjc---r2wTFL6TEuY84&e=bwnfSO).
 
 ## Dataset Details<a name="DatasetDetails"/>
 
@@ -98,7 +98,7 @@ Since radar is mainly a distance sensor, we also did an analysis on the range di
 Ideally, the distribution should be Uniform. In really life scenario, it is hard to detect far-away objects (objects that almost reach the maximum range) using only 1 radar sensor. As for the objects that are too close to the radar, it becomes extremely noisy. This makes the annotation for those objects a little bit impractical.
 
 ## Train set and Test set<a name="traintest"/>
-- Dataset splitting: **80%** goes to trainset, and **20%** goes to testset. The process is implemented as `dataset/split_sequences.py`. As the distributions of the trainset and testset, it is concluded as follow,
+- Dataset splitting: **80%** goes to trainset, and **20%** goes to testset. As for the distributions of the trainset and testset, it is concluded as follow,
 ```
 trainset: {'person': 5210, 'bicycle': 729, 'car': 13537, 'motorcycle': 67, 'bus': 176, 'truck': 3042}
 testset:  {'person': 1280, 'bicycle': 204, 'car':  3377, 'motorcycle': 21, 'bus':  38, 'truck':  720}
@@ -126,7 +126,7 @@ Since our inputs are RAD tensors only, we propose a Coordinate Transformation bl
 
 # How to use<a name="howtouse"/>
 
-**Attention:** Please keep the same directory tree as shown in [GoogleDrive](https://drive.google.com/drive/folders/1v-AF873jP8p6waChF3pSSqz6HXOOZgkC?usp=sharing) or [OneDrive](https://uottawa-my.sharepoint.com/personal/azhan085_uottawa_ca/_layouts/15/guestaccess.aspx?folderid=016d9f28644214b8c8813d618a3809365&authkey=ARvXPjc---r2wTFL6TEuY84&e=bwnfSO)
+**Attention:** Please keep the same directory tree as shown in [GoogleDrive](https://drive.google.com/drive/u/1/folders/1v-AF873jP8p6waChF3pSSqz6HXOOZgkC) or [OneDrive](https://uottawa-my.sharepoint.com/personal/azhan085_uottawa_ca/_layouts/15/guestaccess.aspx?folderid=016d9f28644214b8c8813d618a3809365&authkey=ARvXPjc---r2wTFL6TEuY84&e=bwnfSO)
 
 Download the dataset and arrange it as the folloing directory tree,
 ```bash
