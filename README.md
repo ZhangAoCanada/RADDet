@@ -53,6 +53,14 @@ $ pip install -r requirements.txt
 
 For those who are interested in our dataset, [GoogleDrive](https://drive.google.com/drive/u/1/folders/1v-AF873jP8p6waChF3pSSqz6HXOOZgkC) or [OneDrive](https://uottawa-my.sharepoint.com/personal/azhan085_uottawa_ca/_layouts/15/guestaccess.aspx?folderid=016d9f28644214b8c8813d618a3809365&authkey=ARvXPjc---r2wTFL6TEuY84&e=bwnfSO).
 
+## Additional Data Access
+
+[2021-06-05] As I have received several requests for the access of different input data types and ground truth types, I here share more data. They are available at [GoogleDrive](https://drive.google.com/drive/folders/188OyahtGSjOHxjvobTTi36x6x2Fd1nXm?usp=sharing). 
+
+Please note that each folder contains entire *10158* frames, which might make it relatively difficult to download. The `ADC` folder contains raw radar ADC data and the `gt` folder contains the ground truth labels in the *instance-segmentation* format. The `gt` folder may almost reach size *1 TB*, so be careful when downloading it.
+
+<!-- or [OneDrive](https://uottawa-my.sharepoint.com/personal/azhan085_uottawa_ca/_layouts/15/guestaccess.aspx?folderid=0351fe1639ccb4bb2b7483591a54197b4&authkey=AfDNn6waZxrQ-HGnhA7Z1tg&e=1V2xew) -->
+
 ## Dataset Details<a name="DatasetDetails"/>
 
 After 1.5 months efforts with >60800 frames data capture, auto-annotation and manual correction, a stationary radar dataset for moving road users is generated. The dataset contains totally **10158** frames. Each one of them is carefully annotated, including everything that can be seen by radar but not by stereo. 
