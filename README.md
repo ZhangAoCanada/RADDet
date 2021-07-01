@@ -64,7 +64,7 @@ Please note that each folder contains entire *10158* frames, which might make it
 
 ## Visual Performance of our Auto-Annotation Method<a name="Auto-Annotation"/>
 
-[2021-07-01] Due some people are very interested in the performance of our auto-annotation method, we uploaded two videos for the request. They are available at [visual performance on ego-motion](https://www.youtube.com/watch?v=fk_osgF0mvk) and [visual performance on stationary case](https://www.youtube.com/watch?v=emPLsqIgCbs). More details of the auto-annotation method can be viewed in our paper.
+[2021-07-01] Due to the reason that some people are very interested in the performance of our auto-annotation method, we uploaded two videos for the request. They are available at [visual performance on ego-motion](https://www.youtube.com/watch?v=fk_osgF0mvk) and [visual performance on stationary case](https://www.youtube.com/watch?v=emPLsqIgCbs). More details of the auto-annotation method can be viewed in our paper.
 
 ## Dataset Details<a name="DatasetDetails"/>
 
