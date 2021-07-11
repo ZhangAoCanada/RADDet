@@ -58,6 +58,8 @@ For those who are interested in our dataset, [GoogleDrive](https://drive.google.
 
 [2021-06-05] As I have received several requests for the access of different input data types and ground truth types, I here share more data. They are available at [GoogleDrive](https://drive.google.com/drive/folders/188OyahtGSjOHxjvobTTi36x6x2Fd1nXm?usp=sharing). 
 
+[2021-07-11] I added an additional folder `sensors_para` to all the existing dataset cloud drives for the stereo depth estimation and sensors registration.  Note that, inside the subdirectory `stereo_para`, `left_maps.npy` and `right_maps.npy` are derived from `cv2.initUndistortRectifyMap(...)`; all other matrices are derived from `cv2.stereoRectify(...)`.
+
 Please note that each folder contains entire *10158* frames, which might make it relatively difficult to download. The `ADC` folder contains raw radar ADC data and the `gt` folder contains the ground truth labels in the *instance-segmentation* format. The `gt` folder may almost reach size *1 TB*, so be careful when downloading it.
 
 <!-- or [OneDrive](https://uottawa-my.sharepoint.com/personal/azhan085_uottawa_ca/_layouts/15/guestaccess.aspx?folderid=0351fe1639ccb4bb2b7483591a54197b4&authkey=AfDNn6waZxrQ-HGnhA7Z1tg&e=1V2xew) -->
@@ -88,6 +90,7 @@ The dataset has totally **6** categories, different input formats and ground tru
 RAD:		3D-FFT radar data with size (256, 256, 64)
 stereo_image:	2 rectified stereo images
 gt:		ground truth with {"classes", "boxes", "cart_boxes"}
+sensors_para: 	"stereo_para" for stereo depth estimation, and "registration_matrix" for cross-sensor registration
 ```
 
 **Note:** for the `classes`, they are `["person", "bicycle", "car", "motorcycle", "bus", "truck" ]`.
@@ -95,6 +98,8 @@ gt:		ground truth with {"classes", "boxes", "cart_boxes"}
 **Also Note:** for the `boxes`, the format is `[x_center, y_center, z_center, w, h, d]`.
 
 **Also Note:** for the `cart_box`, the format is `[x_center, y_center, w, h]`.
+
+**Also Note:** for the `stereo_para`, `left_maps.npy` and `right_maps.npy` are derived from `cv2.initUndistortRectifyMap(...)`; all other matrices are derived from `cv2.stereoRectify(...)`.
 
 ## Statistic Analysis<a name="statistic"/>
 
