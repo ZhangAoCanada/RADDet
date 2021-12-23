@@ -53,7 +53,7 @@ class DataGenerator:
         return np.array(strides).astype(np.float32)
 
     def readSequences(self, mode):
-        """ Read sequences from PROJECT_ROOT/sequences.txt """
+        """ Read sequences from train/test directories. """
         assert mode in ["train", "test"]
         if mode == "train":
             sequences = glob.glob(os.path.join(self.config_data["train_set_dir"], \
@@ -62,8 +62,8 @@ class DataGenerator:
             sequences = glob.glob(os.path.join(self.config_data["test_set_dir"], \
                                 "RAD/*/*.npy"))
         if len(sequences) == 0:
-            raise ValueError("Cannot read sequences.txt. \
-                        Please check if the file is organized properly.")
+            raise ValueError("Cannot read data from either train or test directory, \
+                        Please double-check the data path or the data format.")
         return sequences
 
     """---------------------------------------------------------------------"""
