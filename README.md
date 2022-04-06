@@ -81,7 +81,7 @@ For the data capture, we used the same radar configuration through the entire re
 "doppler_size":				64,
 "azimuth_size":				256,
 "range_resolution":			0.1953125 m/bin,
-"angular_resolution":			0.006135923 degrees/bin,
+"angular_resolution":			0.006135923 radian/bin,
 "velocity_resolution":			0.41968030701528203 (m/s)/bin
 ```
 
