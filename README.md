@@ -54,6 +54,8 @@ $ pip install -r requirements.txt
 
 For those who are interested in our dataset, [GoogleDrive](https://drive.google.com/drive/u/1/folders/1v-AF873jP8p6waChF3pSSqz6HXOOZgkC) or [OneDrive](https://uottawa-my.sharepoint.com/personal/azhan085_uottawa_ca/_layouts/15/guestaccess.aspx?folderid=016d9f28644214b8c8813d618a3809365&authkey=ARvXPjc---r2wTFL6TEuY84&e=bwnfSO).
 
+**NOTE: The dataset is under the license of [Creative Commons Attribution 4.0 International License](https://creativecommons.org/licenses/by/4.0/). Please cite our paper if you use the dataset in your research.**
+
 ## Additional Data Access<a name="AdditionalDatasetLink"/>
 
 [2021-06-05] As I have received several requests for the access of different input data types and ground truth types, I here share more data. They are available at [GoogleDrive](https://drive.google.com/drive/folders/188OyahtGSjOHxjvobTTi36x6x2Fd1nXm?usp=sharing). 
