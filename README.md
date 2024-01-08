@@ -52,15 +52,17 @@ $ pip install -r requirements.txt
 
 ## Dataset Link<a name="DatasetLink"/>
 
-For those who are interested in our dataset, [GoogleDrive](https://drive.google.com/drive/u/1/folders/1v-AF873jP8p6waChF3pSSqz6HXOOZgkC) or [OneDrive](https://uottawa-my.sharepoint.com/personal/azhan085_uottawa_ca/_layouts/15/guestaccess.aspx?folderid=016d9f28644214b8c8813d618a3809365&authkey=ARvXPjc---r2wTFL6TEuY84&e=bwnfSO).
+For those who are interested in our dataset, ~~[GoogleDrive](https://drive.google.com/drive/u/1/folders/1v-AF873jP8p6waChF3pSSqz6HXOOZgkC)~~ or [OneDrive](https://uottawa-my.sharepoint.com/personal/azhan085_uottawa_ca/_layouts/15/guestaccess.aspx?folderid=016d9f28644214b8c8813d618a3809365&authkey=ARvXPjc---r2wTFL6TEuY84&e=bwnfSO). For those who are interested in the additional ADC data, visit [BaiduPan](https://pan.baidu.com/s/1T3p5wrxgy0gdsZBRFqapVQ?pwd=szax).
 
 **NOTE: The dataset is under the license of [Creative Commons Attribution 4.0 International License](https://creativecommons.org/licenses/by/4.0/). Please cite our paper if you use the dataset in your research.**
 
 ## Additional Data Access<a name="AdditionalDatasetLink"/>
 
-[2021-06-05] As I have received several requests for the access of different input data types and ground truth types, I here share more data. They are available at [GoogleDrive](https://drive.google.com/drive/folders/188OyahtGSjOHxjvobTTi36x6x2Fd1nXm?usp=sharing). 
+[2024-01-08] As you may have probably noticed, the GD data links are unavailable. This is due to that my GD account was closed by my University. But thanks to @lijiunderstand for uploading the missing ADC data to [BaiduPan](https://pan.baidu.com/s/1T3p5wrxgy0gdsZBRFqapVQ?pwd=szax).
 
 [2021-07-11] I added an additional folder `sensors_para` to all the existing dataset cloud drives for the stereo depth estimation and sensors registration.  Note that, inside the subdirectory `stereo_para`, `left_maps.npy` and `right_maps.npy` are derived from `cv2.initUndistortRectifyMap(...)`; all other matrices are derived from `cv2.stereoRectify(...)`.
+
+[2021-06-05] As I have received several requests for the access of different input data types and ground truth types, I here share more data. They are available at ~~[GoogleDrive](https://drive.google.com/drive/folders/188OyahtGSjOHxjvobTTi36x6x2Fd1nXm?usp=sharing)~~. 
 
 Please note that each folder contains entire *10158* frames, which might make it relatively difficult to download. The `ADC` folder contains raw radar ADC data and the `gt` folder contains the ground truth labels in the *instance-segmentation* format. The `gt` folder may almost reach size *1 TB*, so be careful when downloading it.
 
